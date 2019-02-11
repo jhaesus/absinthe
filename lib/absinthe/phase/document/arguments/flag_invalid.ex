@@ -18,6 +18,10 @@ defmodule Absinthe.Phase.Document.Arguments.FlagInvalid do
     {:ok, result}
   end
 
+  defp handle_node(%Blueprint.Input.Object{schema_node: %Absinthe.Type.Scalar{}} = node) do
+    node
+  end
+
   defp handle_node(%{schema_node: nil, flags: %{}} = node) do
     node |> flag_invalid(:extra)
   end

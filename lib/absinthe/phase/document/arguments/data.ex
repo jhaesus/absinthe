@@ -50,6 +50,10 @@ defmodule Absinthe.Phase.Document.Arguments.Data do
     %{node | data: data_list}
   end
 
+  def handle_node(%Input.Value{normalized: %Input.Object{schema_node: %Absinthe.Type.Scalar{}}} = node) do
+    node
+  end
+
   def handle_node(%Input.Value{normalized: %Input.Object{fields: fields}} = node) do
     data =
       for field <- fields, include_field?(field), into: %{} do
